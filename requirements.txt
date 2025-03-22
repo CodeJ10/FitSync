@@ -1,7 +1,5 @@
-gcc
-HTML
-CSS
-JavaScript  
+
+
 MediaPipe 
 
 Node.js  
