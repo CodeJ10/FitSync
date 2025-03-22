@@ -1,0 +1,14 @@
+Frontend:
+HTML5 - For structure and layout
+CSS3 - For styling and responsive design
+JavaScript (Vanilla) - For client-side functionality
+MediaPipe - For pose detection and exercise tracking
+@mediapipe/camera_utils
+@mediapipe/pose
+@mediapipe/control_utils
+Backend:
+Node.js - Runtime environment
+Express.js - Web application framework
+Express Session - For session management
+bcryptjs - For password hashing and security
+dotenv - For environment variable management
