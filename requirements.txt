@@ -1,10 +1,5 @@
-
-
-MediaPipe 
-
-Node.js  
-Express.js  
-Express 
-bcryptjs
-dotenv
-python3
+express==4.21.2
+express-session==1.17.3
+bcryptjs==2.4.3
+dotenv==16.0.3
+nodemon==3.1.9
