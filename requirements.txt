@@ -1,4 +1,4 @@
-
+gunicorn
 HTML5 
 CSS3 
 JavaScript  
@@ -6,6 +6,7 @@ MediaPipe
 
 Node.js  
 Express.js  
-Express Session 
+Express 
 bcryptjs
 dotenv
+python3
