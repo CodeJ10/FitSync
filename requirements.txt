@@ -1,6 +1,6 @@
-gunicorn
-HTML5 
-CSS3 
+gcc
+HTML
+CSS
 JavaScript  
 MediaPipe 
 
