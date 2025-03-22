@@ -1,5 +1,9 @@
-express==4.21.2
-express-session==1.17.3
-bcryptjs==2.4.3
-dotenv==16.0.3
-nodemon==3.1.9
+Django
+djangorestframework
+djongo
+pymongo
+gunicorn
+whitenoise
+boto3
+pillow
+python-dotenv
