@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fitness Quest</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="auth-page" class="page">
+        <div class="auth-container">
+            <div class="brand">
+                <div class="logo">🏋️‍♂️</div>
+                <h1>FitSync</h1>
+            </div>
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="showTab('login')">Login</button>
+                <button class="tab-btn" onclick="showTab('register')">Register</button>
+            </div>
+            <div id="login-form" class="auth-form">
+                <input type="text" id="login-username" placeholder="Username">
+                <input type="password" id="login-password" placeholder="Password">
+                <button onclick="login()">Enter the Quest</button>
+            </div>
+            <div id="register-form" class="auth-form hidden">
+                <input type="text" id="register-username" placeholder="Choose Username">
+                <input type="password" id="register-password" placeholder="Choose Password">
+                <button onclick="register()">Begin Your Journey</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-page" class="page hidden">
+        <div class="game-header">
+            <div class="brand">
+                <div class="logo">🏋️‍♂️</div>
+                <h1>FitSync</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home-section" class="nav-link active" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#leaderboard-section" class="nav-link" onclick="showSection('leaderboard')">Leaderboard</a></li>
+                    <li><a href="#exercise-section" class="nav-link" onclick="showSection('exercise')">Exercise</a></li>
+                    <li><a href="#achievements-section" class="nav-link" onclick="showSection('achievements')">Achievements</a></li>
+                    <li><a href="#contact-section" class="nav-link" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="player-stats">
+                <div class="level-display">
+                    <span id="player-level">Level: 1</span>
+                    <div class="xp-bar">
+                        <div id="xp-progress"></div>
+                    </div>
+                    <span id="player-xp" class="xp-text">XP: 0/1000</span>
+                </div>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div id="home-section" class="home-section">
+                <div class="home-hero">
+                    <div class="home-content">
+                        <h1 class="home-title">Transform Your Fitness Journey</h1>
+                        <p class="home-description">Welcome to FitSync, your personal AI-powered fitness companion. Track your exercises, earn XP, and level up your fitness game with real-time pose detection and personalized guidance.</p>
+                        <button class="learn-more-btn">Learn More</button>
+                    </div>
+                    <div class="home-image">
+                        <img src="https://raw.githubusercontent.com/jaybee0922/webDev/main/plank.jpg" 
+                             alt="Man doing plank exercise at home" 
+                             onerror="this.onerror=null; this.src='https://img.freepik.com/free-photo/young-sports-man-training-gym_1303-20718.jpg?w=740';">
+                    </div>
+                </div>
+                <div class="benefits-section">
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🎯</span>
+                        <h3>Prevent Pain & Injury</h3>
+                        <p>Learn proper form and technique to avoid common exercise-related injuries and maintain long-term fitness success.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">⚡</span>
+                        <h3>Boost Energy & Focus</h3>
+                        <p>Improve your posture to enhance breathing, reduce fatigue, and increase mental clarity throughout your day.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">💪</span>
+                        <h3>Build Confidence</h3>
+                        <p>Master correct form and watch your strength grow, building self-assurance with every workout session.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leaderboard-section" class="leaderboard">
+                <div class="leaderboard-header">
+                    <h2>🏆 Leaderboard</h2>
+                    <p class="leaderboard-subtitle">Top Fitness Warriors</p>
+                </div>
+                <div id="leaderboard-list"></div>
+            </div>
+
+            <div id="exercise-section" class="exercise-selection">
+                <h2>Choose Your Exercise</h2>
+                <div class="exercise-buttons">
+                    <button onclick="selectExercise('pushup')" class="exercise-btn">
+                        <span class="exercise-name">Push-ups</span>
+                        <span class="exercise-xp">5 XP/rep</span>
+                    </button>
+                    <button onclick="selectExercise('squat')" class="exercise-btn">
+                        <span class="exercise-name">Squats</span>
+                        <span class="exercise-xp">5 XP/rep</span>
+                    </button>
+                    <button onclick="selectExercise('plank')" class="exercise-btn">
+                        <span class="exercise-name">Plank</span>
+                        <span class="exercise-xp">10 XP/sec</span>
+                    </button>
+                    <button onclick="selectExercise('jumpingjack')" class="exercise-btn">
+                        <span class="exercise-name">Jumping Jacks</span>
+                        <span class="exercise-xp">3 XP/rep</span>
+                    </button>
+                    <button onclick="selectExercise('armraises')" class="exercise-btn">
+                        <span class="exercise-name">Arm Raises</span>
+                        <span class="exercise-xp">2 XP/rep</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="achievements-section" class="badges-section">
+            <h2>Your Achievements</h2>
+            <div class="badges-grid" id="badges-container">
+                <!-- Push-up Achievements -->
+                <div class="badge">
+                    <div class="badge-icon">💪</div>
+                    <div class="badge-name">Push-up Novice</div>
+                    <div class="badge-progress">0/10</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">⚔️</div>
+                    <div class="badge-name">Push-up Warrior</div>
+                    <div class="badge-progress">0/100</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">👑</div>
+                    <div class="badge-name">Push-up Master</div>
+                    <div class="badge-progress">0/1000</div>
+                </div>
+
+                <!-- Squat Achievements -->
+                <div class="badge">
+                    <div class="badge-icon">🦵</div>
+                    <div class="badge-name">Squat Novice</div>
+                    <div class="badge-progress">0/10</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">⚔️</div>
+                    <div class="badge-name">Squat Warrior</div>
+                    <div class="badge-progress">0/100</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">👑</div>
+                    <div class="badge-name">Squat Master</div>
+                    <div class="badge-progress">0/1000</div>
+                </div>
+
+                <!-- Plank Achievements -->
+                <div class="badge">
+                    <div class="badge-icon">⏱️</div>
+                    <div class="badge-name">Plank Novice</div>
+                    <div class="badge-progress">0/30</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">⚔️</div>
+                    <div class="badge-name">Plank Warrior</div>
+                    <div class="badge-progress">0/300</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">👑</div>
+                    <div class="badge-name">Plank Master</div>
+                    <div class="badge-progress">0/3000</div>
+                </div>
+
+                <!-- Jumping Jack Achievements -->
+                <div class="badge">
+                    <div class="badge-icon">🦘</div>
+                    <div class="badge-name">Jumping Jack Novice</div>
+                    <div class="badge-progress">0/10</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">⚔️</div>
+                    <div class="badge-name">Jumping Jack Warrior</div>
+                    <div class="badge-progress">0/100</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">👑</div>
+                    <div class="badge-name">Jumping Jack Master</div>
+                    <div class="badge-progress">0/1000</div>
+                </div>
+
+                <!-- Arm Raises Achievements -->
+                <div class="badge">
+                    <div class="badge-icon">🦾</div>
+                    <div class="badge-name">Arm Raises Novice</div>
+                    <div class="badge-progress">0/10</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">⚔️</div>
+                    <div class="badge-name">Arm Raises Warrior</div>
+                    <div class="badge-progress">0/100</div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">👑</div>
+                    <div class="badge-name">Arm Raises Master</div>
+                    <div class="badge-progress">0/1000</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact-section" class="contact-section">
+            <h2>Contact Us</h2>
+            <p class="contact-subtitle">Have questions about our services? We're here to help!</p>
+            <div class="contact-content">
+                <div class="contact-form-container">
+                    <h3>Get in Touch</h3>
+                    <p>Fill out the form and our team will get back to you within 24 hours.</p>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="send-message-btn">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <h3>Email</h3>
+                        <p>support@fitsync.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">⏰</span>
+                        <h3>Support Hours</h3>
+                        <p>Monday - Friday: 9AM to 5PM EST</p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">💬</span>
+                        <h3>Social Media</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">Twitter</a>
+                            <a href="#" class="social-link">Instagram</a>
+                            <a href="#" class="social-link">Facebook</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <div class="logo">🏋️‍♂️</div>
+                    <h3>FitSync</h3>
+                </div>
+                <p class="footer-description">Transform your fitness journey with guided workouts and personalized tracking.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Posture Analysis</a></li>
+                    <li><a href="#">Leaderboard</a></li>
+                    <li><a href="#">Rewards</a></li>
+                    <li><a href="#">Exercises</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Posture Tips</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Subscribe</h4>
+                <p>Join our newsletter for posture tips and updates.</p>
+                <div class="subscribe-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit" class="subscribe-btn">→</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 FitSync. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="exercise-instruction-page" class="page">
+        <div class="exercise-instruction-container">
+            <div class="exercise-instruction-content">
+                <h2 id="exercise-title">Exercise Title</h2>
+                <div class="exercise-description">
+                    <h3>How to do it:</h3>
+                    <p id="exercise-steps"></p>
+                    <h3>Tips:</h3>
+                    <p id="exercise-tips"></p>
+                </div>
+                <button onclick="startExercise()" class="start-button">Start Exercise</button>
+            </div>
+            <div class="exercise-image-section">
+                <img id="exercise-image" src="" alt="Exercise demonstration">
+            </div>
+        </div>
+    </div>
+
+    <div id="exercise-page" class="page">
+        <canvas id="output"></canvas>
+        <div class="exercise-stats">
+            <div id="counter">0 reps</div>
+            <div id="xp-earned">+0 XP</div>
+            <div id="total-xp-earned">Total: 0 XP</div>
+        </div>
+        <button onclick="returnToMain()" class="back-button">Return to Quest</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
